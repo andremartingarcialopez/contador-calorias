@@ -1,36 +1,48 @@
 
-import { useState } from "react"
+import { Dispatch, useState } from "react"
 import { categories } from "../data/categoriesData"
 import { Activity } from "../types/types";
 
-export function Form() {
+type FormProps = {
+    dispatch: Dispatch<ActivityActions>
+}
 
-    const [activity, setActivity] = useState<Activity>({
-        categories: 1,
-        activities: "",
-        calories: ""
-    });
+const initialStateForm = {
+    categories: 1,
+    activities: "",
+    calories: ""
+}
+
+export function Form({ dispatch }: FormProps) {
+
+    const [activity, setActivity] = useState<Activity>(initialStateForm);
 
     function handleChange(e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) {
 
         const numberCovertion = ["categories", "calories"].includes(e.target.id);
 
         setActivity({ ...activity, [e.target.id]: numberCovertion ? +e.target.value : e.target.value })
-        console.log(activity)
-        console.log(numberCovertion)
+
     }
 
     function formValidation() {
-        const {activities, calories} = activity;
-        if (activities.trim() == "" || calories <= 0) {
+        const { activities, calories } = activity;
+
+        if (activities.trim() == "" || calories == "") {
             return true
-        }else{
+        } else {
             return false
         }
     }
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        dispatch({ type: "save-activity", playload: { newActivity: activity } })
+        setActivity(initialStateForm)
+    }
+
     return (
-        <form className="bg-white p-8 rounded shadow shadow-gray-500">
+        <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow shadow-gray-500">
             <div>
                 <label className="font-bold" htmlFor="categories">Categorias:</label>
                 <select className="border p-2 rounded-xl border-gray-500 w-full my-3"
@@ -67,7 +79,7 @@ export function Form() {
 
             <input type="submit"
                 className=" text-white font-bold bg-black p-2 mt-3 w-full hover:bg-gray-800 hover:cursor-pointer disabled:opacity-30 disabled:bg-black disabled:cursor-default"
-                value={activity.categories == 1 ? "Guardar Comida" : "Guardar Ejercicio" }
+                value={activity.categories == 1 ? "Guardar Comida" : "Guardar Ejercicio"}
                 disabled={formValidation()} />
         </form>
     )
