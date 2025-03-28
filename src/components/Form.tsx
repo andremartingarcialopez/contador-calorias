@@ -2,12 +2,15 @@
 import { Dispatch, useState } from "react"
 import { categories } from "../data/categoriesData"
 import { Activity } from "../types/types";
+import { v4 as uuid } from "uuid";
+import { ActivityActions } from "../useReducer/activityReducer";
 
 type FormProps = {
     dispatch: Dispatch<ActivityActions>
 }
 
 const initialStateForm = {
+    id: uuid(),
     categories: 1,
     activities: "",
     calories: ""
@@ -39,6 +42,7 @@ export function Form({ dispatch }: FormProps) {
         e.preventDefault();
         dispatch({ type: "save-activity", playload: { newActivity: activity } })
         setActivity(initialStateForm)
+        initialStateForm.id = uuid();
     }
 
     return (
