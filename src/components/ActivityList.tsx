@@ -9,7 +9,7 @@ type ActivityListProps = {
 
 export function ActivityList({ activities }: ActivityListProps) {
 
-    const formatCategory = useMemo(() => (category: Activity["id"]) => {
+    const formatCategory = useMemo(() => (category: Activity["categories"]) => {
         return categories.map(function (cat) {
             return cat.id == category ? cat.name : ""
         })
