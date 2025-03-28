@@ -1,11 +1,10 @@
 
+import { Form } from "./components/Form"
 function App() {
 
-
-  
   return (
     <>
-    <header className="bg-lime-500 p-5">
+    <header className="bg-lime-600 p-5">
       <div className="mx-auto max-w-4xl flex justify-between">
         <h1 className=" text-white text-3xl font-bold">
           Contador de Calorias Test
@@ -16,6 +15,12 @@ function App() {
         </button>
       </div>
     </header>
+
+    <section className="bg-lime-500 p-10">
+      <div className="mx-auto max-w-4xl">
+        <Form/>
+      </div>
+    </section>
       
     </>
   )
