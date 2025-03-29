@@ -2,12 +2,14 @@ import { useMemo } from "react"
 import { Activity } from "../types/types"
 import { categories } from "../data/categoriesData"
 import { PencilSquareIcon } from "@heroicons/react/16/solid"
+import { ActivityActions } from "../useReducer/activityReducer"
 
 type ActivityListProps = {
     activities: Activity[]
+    dispatch: React.ActionDispatch<[action: ActivityActions]>
 }
 
-export function ActivityList({ activities }: ActivityListProps) {
+export function ActivityList({ activities, dispatch }: ActivityListProps) {
 
     const formatCategory = useMemo(() => (category: Activity["categories"]) => {
         return categories.map(function (cat) {
@@ -29,7 +31,7 @@ export function ActivityList({ activities }: ActivityListProps) {
                         </div>
 
                         <div>
-                            <button>
+                            <button onClick={() => dispatch({type: "edit-activityID", playload:{id: activity.id}})}>
                                 <PencilSquareIcon className={`w-8 h-8 text-gray-600 hover:cursor-pointer ${activity.categories == 1 ? `hover:text-orange-500` : `hover:text-yellow-500`}`}/>
                             </button>
                         </div>
