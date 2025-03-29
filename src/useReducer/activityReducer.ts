@@ -1,8 +1,8 @@
 import { Activity } from "../types/types"
 
 export type ActivityActions = 
-    {type: "save-activity", playload:{newActivity: Activity}} |
-    {type: "edit-activityID", playload:{id: Activity["id"]}} 
+    {type: "save-activity", payload:{newActivity: Activity}} |
+    {type: "edit-activityID", payload:{id: Activity["id"]}} 
 
 export type InitialStateType = {
     activities: Activity[]
@@ -24,13 +24,13 @@ export function activityReducers(state: InitialStateType = initialStade , action
         if (state.activityID) {
             activityUpdate = state.activities.map(function (activity) {
                 if (activity.id == state.activityID) {
-                    return action.playload.newActivity
+                    return action.payload.newActivity
                 }else{
                     return activity
                 }
             })
         }else{
-            activityUpdate = [...state.activities, action.playload.newActivity]
+            activityUpdate = [...state.activities, action.payload.newActivity]
         }
         
         return {
@@ -44,7 +44,7 @@ export function activityReducers(state: InitialStateType = initialStade , action
     if (action.type == "edit-activityID") {
 
         return {
-            ...state, activityID: action.playload.id
+            ...state, activityID: action.payload.id
         }
     }
 }

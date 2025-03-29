@@ -31,7 +31,7 @@ export function ActivityList({ activities, dispatch }: ActivityListProps) {
                         </div>
 
                         <div>
-                            <button onClick={() => dispatch({type: "edit-activityID", playload:{id: activity.id}})}>
+                            <button onClick={() => dispatch({type: "edit-activityID", payload:{id: activity.id}})}>
                                 <PencilSquareIcon className={`w-8 h-8 text-gray-600 hover:cursor-pointer ${activity.categories == 1 ? `hover:text-orange-500` : `hover:text-yellow-500`}`}/>
                             </button>
                         </div>

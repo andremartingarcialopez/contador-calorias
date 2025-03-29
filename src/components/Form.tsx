@@ -57,7 +57,7 @@ export function Form({ dispatch, state }: FormProps) {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        dispatch({ type: "save-activity", playload: { newActivity: activity } })
+        dispatch({ type: "save-activity", payload: { newActivity: activity } })
         setActivity(initialStateForm)
         initialStateForm.id = uuid();
     }
