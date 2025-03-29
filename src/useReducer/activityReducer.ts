@@ -18,9 +18,26 @@ export const initialStade: InitialStateType = {
 export function activityReducers(state: InitialStateType = initialStade , action: ActivityActions) {
     
     if (action.type == "save-activity") {
+
+        let activityUpdate: Activity[] = [];
+
+        if (state.activityID) {
+            activityUpdate = state.activities.map(function (activity) {
+                if (activity.id == state.activityID) {
+                    return action.playload.newActivity
+                }else{
+                    return activity
+                }
+            })
+        }else{
+            activityUpdate = [...state.activities, action.playload.newActivity]
+        }
         
         return {
-            ...state, activities:[...state.activities, action.playload.newActivity]
+            ...state, 
+            activities: activityUpdate,
+            activityID: ""
+            
         }
     }
 
